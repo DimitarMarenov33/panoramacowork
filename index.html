@@ -16,7 +16,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}.hero-video{display:none!important}}
 body{font-family:var(--body);background:var(--cream);color:var(--navy);line-height:1.6;overflow-x:hidden}
 body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;z-index:9999;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E")}
@@ -58,13 +58,13 @@ nav{position:sticky;top:0;z-index:100;background:rgba(244,237,222,.94);backdrop-
 .nav-in{display:flex;align-items:center;justify-content:space-between;height:76px}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
 .brand img{height:52px;mix-blend-mode:multiply}
-.brand .brand-name{font-family:var(--disp);text-transform:uppercase;letter-spacing:.1em;font-weight:800;font-size:1rem}
-.nav-links{display:flex;gap:26px;align-items:center;list-style:none}
-.nav-links a{text-decoration:none;font-family:var(--disp);text-transform:uppercase;font-size:.78rem;letter-spacing:.12em;font-weight:700;padding:6px 2px;border-bottom:3px solid transparent}
+.brand .brand-name{font-family:var(--disp);text-transform:uppercase;letter-spacing:.1em;font-weight:800;font-size:1rem;white-space:nowrap}
+.nav-links{display:flex;gap:22px;align-items:center;list-style:none}
+.nav-links a{text-decoration:none;font-family:var(--disp);text-transform:uppercase;font-size:.78rem;letter-spacing:.12em;font-weight:700;padding:6px 2px;border-bottom:3px solid transparent;white-space:nowrap}
 .nav-links a:hover{border-bottom-color:var(--orange)}
 .nav-book{background:var(--mustard);border:3px solid var(--navy);border-radius:8px;padding:10px 18px!important;box-shadow:3px 3px 0 var(--navy)}
 .burger{display:none;background:none;border:3px solid var(--navy);border-radius:8px;width:46px;height:46px;font-size:1.3rem;cursor:pointer;color:var(--navy)}
-@media(max-width:880px){
+@media(max-width:1020px){
   .nav-links{display:none;position:absolute;top:76px;left:0;right:0;background:var(--cream);flex-direction:column;padding:22px;border-bottom:3px solid var(--navy);gap:18px}
   .nav-links.open{display:flex}
   .burger{display:block}
@@ -268,6 +268,9 @@ footer p{font-size:.82rem;color:var(--brown)}
 
 <header class="hero" id="top">
   <img class="hero-bg" data-asset="interior" alt="">
+  <video class="hero-bg hero-video" autoplay muted loop playsinline preload="metadata" poster="img/interior.jpg" aria-hidden="true" onerror="this.remove()">
+    <source src="img/hero.mp4" type="video/mp4">
+  </video>
   <div class="shade"></div>
   <div class="wrap">
     <svg class="bob" width="120" height="34" viewBox="0 0 120 34" aria-hidden="true" style="margin:0 auto 6px;display:block"><g fill="none" stroke="#F4EDDE" stroke-width="2.6" stroke-linecap="round"><path d="M10 20 Q18 10 26 18 Q34 10 42 20"/><path d="M72 14 Q79 5 86 12 Q93 5 100 14"/></g></svg>
@@ -712,7 +715,11 @@ function showConfirm(data,payload){
 
 /* ---------- asset injection ---------- */
 const ASSETS={logo:"img/logo.jpg",interior:"img/interior.jpg",desk:"img/desk.jpg",promenade:"img/promenade.jpg"};
-document.querySelectorAll("[data-asset]").forEach(el=>{const d=ASSETS[el.dataset.asset];if(d){el.onerror=()=>{el.removeAttribute("src");el.style.visibility="hidden";};el.src=d;el.style.visibility="visible";}});
+document.querySelectorAll("[data-asset]").forEach(el=>{const d=ASSETS[el.dataset.asset];if(d){
+  el.onerror=()=>{el.style.display="none";};
+  if(el.dataset.asset==="logo")el.onload=()=>{document.querySelectorAll(".brand-name").forEach(b=>b.style.display="none");};
+  el.src=d;el.style.visibility="visible";
+}});
 
 /* ---------- scroll reveal ---------- */
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}}),{threshold:.12});
