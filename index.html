@@ -73,7 +73,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(244,237,222,.94);backdrop-
 /* HERO */
 .hero{position:relative;min-height:92vh;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--cream);padding:120px 0 140px;overflow:hidden;background:var(--band)}
 .hero .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.hero .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,42,68,.62),rgba(30,42,68,.8))}
+.hero .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,42,68,.5),rgba(30,42,68,.74))}
 .hero .wrap{position:relative;z-index:2;max-width:900px}
 .hero .eyebrow{color:var(--mustard)}.hero .eyebrow::before,.hero .eyebrow::after{background:var(--mustard)}
 .hero h1{font-size:clamp(2.1rem,5.4vw,4rem);margin:22px 0 20px;text-shadow:3px 3px 0 rgba(30,42,68,.8)}
@@ -267,8 +267,8 @@ footer p{font-size:.82rem;color:var(--brown)}
 </nav>
 
 <header class="hero" id="top">
-  <img class="hero-bg" data-asset="interior" alt="">
-  <video class="hero-bg hero-video" autoplay muted loop playsinline preload="metadata" poster="img/interior.jpg" aria-hidden="true" onerror="this.remove()">
+  <img class="hero-bg" src="img/hero-poster.jpg" alt="">
+  <video id="heroVideo" class="hero-bg hero-video" autoplay muted loop playsinline preload="auto" poster="img/hero-poster.jpg" aria-hidden="true">
     <source src="img/hero.mp4" type="video/mp4">
   </video>
   <div class="shade"></div>
@@ -720,6 +720,17 @@ document.querySelectorAll("[data-asset]").forEach(el=>{const d=ASSETS[el.dataset
   if(el.dataset.asset==="logo")el.onload=()=>{document.querySelectorAll(".brand-name").forEach(b=>b.style.display="none");};
   el.src=d;el.style.visibility="visible";
 }});
+
+/* ---------- hero video: make sure autoplay actually starts ---------- */
+const hv=document.getElementById("heroVideo");
+if(hv){
+  hv.muted=true;
+  const tryPlay=()=>{if(hv.paused)hv.play().catch(()=>{});};
+  tryPlay();
+  hv.addEventListener("canplay",tryPlay);
+  document.addEventListener("visibilitychange",()=>{if(!document.hidden)tryPlay();});
+  window.addEventListener("pointerdown",tryPlay,{once:true});
+}
 
 /* ---------- scroll reveal ---------- */
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}}),{threshold:.12});
