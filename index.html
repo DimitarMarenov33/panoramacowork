@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<meta name="supported-color-schemes" content="light">
+<title>Panorama Co.Space — Coworking in Nesebar, 200m from the sea</title>
+<style>
+:root{color-scheme:light only;
+  --cream:#F4EDDE; --cream2:#EFE5CF; --navy:#1E2A44; --navy2:#16203a;
+  --mustard:#E8B54D; --orange:#D9822B; --dblue:#4A6B8A; --brown:#9C6B3F;
+  --band:linear-gradient(180deg,#4A6B8A 0 14.28%,#7C93A3 0 28.57%,#C4B98A 0 42.85%,#E8B54D 0 57.14%,#E39A3B 0 71.42%,#D9822B 0 85.71%,#C56A24 0 100%);
+  --disp:"Futura","Avenir Next","Century Gothic","Trebuchet MS",sans-serif;
+  --body:"Avenir Next","Avenir","Segoe UI","Helvetica Neue",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{font-family:var(--body);background:var(--cream);color:var(--navy);line-height:1.6;overflow-x:hidden}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;z-index:9999;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E")}
+h1,h2,h3,.disp{font-family:var(--disp);text-transform:uppercase;letter-spacing:.04em;line-height:1.12}
+img{max-width:100%;display:block}img[data-asset]:not([src]){visibility:hidden}.hero .hero-bg:not([src]){visibility:hidden}
+a{color:inherit}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+.eyebrow{font-family:var(--disp);text-transform:uppercase;letter-spacing:.22em;font-size:.72rem;font-weight:700;color:var(--orange);display:flex;align-items:center;gap:12px;justify-content:center}
+.eyebrow::before,.eyebrow::after{content:"";width:44px;height:10px;background-repeat:repeat-x;background-size:22px 10px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='10'%3E%3Cpath d='M0 5 Q5.5 0 11 5 T22 5' fill='none' stroke='%23D9822B' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E")}
+/* orange headings on light sections (readable in any color scheme) */
+.promise h2,.features h2,.aud h2,.guar h2,.booksec h2,.faq h2,.founders .card h2{color:var(--orange);text-shadow:1px 1px 0 rgba(30,42,68,.15)}
+/* decorative motifs */
+.motif{position:absolute;pointer-events:none;opacity:.9}
+.motif svg{display:block}
+.spin-slow{animation:spin 50s linear infinite}
+.bob{animation:bob 5s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@media(max-width:720px){.motif{transform:scale(.62);transform-origin:top right}}
+.bandline{height:14px;background:var(--band);border-top:3px solid var(--navy);border-bottom:3px solid var(--navy)}
+.btn{display:inline-block;font-family:var(--disp);text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:.9rem;
+  padding:16px 30px;border:3px solid var(--navy);border-radius:10px;cursor:pointer;text-decoration:none;text-align:center;
+  transition:transform .15s,box-shadow .15s;box-shadow:4px 4px 0 var(--navy)}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--navy)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--navy)}
+.btn:focus-visible{outline:3px dashed var(--orange);outline-offset:3px}
+.btn:disabled{opacity:.6;cursor:wait;transform:none}
+.btn-primary{background:var(--mustard);color:var(--navy)}
+.btn-ghost{background:transparent;color:var(--cream);border-color:var(--cream);box-shadow:4px 4px 0 rgba(244,237,222,.35)}
+.btn-ghost:hover{box-shadow:7px 7px 0 rgba(244,237,222,.35)}
+.btn-navy{background:var(--navy);color:var(--cream);box-shadow:4px 4px 0 var(--orange)}
+.btn-navy:hover{box-shadow:7px 7px 0 var(--orange)}
+section{padding:88px 0;position:relative;overflow:hidden}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(244,237,222,.94);backdrop-filter:blur(6px);border-bottom:3px solid var(--navy)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:76px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand img{height:52px;mix-blend-mode:multiply}
+.brand .brand-name{font-family:var(--disp);text-transform:uppercase;letter-spacing:.1em;font-weight:800;font-size:1rem}
+.nav-links{display:flex;gap:26px;align-items:center;list-style:none}
+.nav-links a{text-decoration:none;font-family:var(--disp);text-transform:uppercase;font-size:.78rem;letter-spacing:.12em;font-weight:700;padding:6px 2px;border-bottom:3px solid transparent}
+.nav-links a:hover{border-bottom-color:var(--orange)}
+.nav-book{background:var(--mustard);border:3px solid var(--navy);border-radius:8px;padding:10px 18px!important;box-shadow:3px 3px 0 var(--navy)}
+.burger{display:none;background:none;border:3px solid var(--navy);border-radius:8px;width:46px;height:46px;font-size:1.3rem;cursor:pointer;color:var(--navy)}
+@media(max-width:880px){
+  .nav-links{display:none;position:absolute;top:76px;left:0;right:0;background:var(--cream);flex-direction:column;padding:22px;border-bottom:3px solid var(--navy);gap:18px}
+  .nav-links.open{display:flex}
+  .burger{display:block}
+}
+
+/* HERO */
+.hero{position:relative;min-height:92vh;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--cream);padding:120px 0 140px;overflow:hidden;background:var(--band)}
+.hero .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,42,68,.62),rgba(30,42,68,.8))}
+.hero .wrap{position:relative;z-index:2;max-width:900px}
+.hero .eyebrow{color:var(--mustard)}.hero .eyebrow::before,.hero .eyebrow::after{background:var(--mustard)}
+.hero h1{font-size:clamp(2.1rem,5.4vw,4rem);margin:22px 0 20px;text-shadow:3px 3px 0 rgba(30,42,68,.8)}
+.hero p{font-size:clamp(1.02rem,1.9vw,1.3rem);max-width:640px;margin:0 auto 34px;color:#f7f2e6}
+.hero-ctas{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.trustbar{position:absolute;left:0;right:0;bottom:0;z-index:3;background:var(--navy);border-top:3px solid var(--mustard);padding:14px 0}
+.trustbar .wrap{display:flex;gap:10px 34px;justify-content:center;flex-wrap:wrap;font-size:.85rem;font-weight:600;color:var(--cream)}
+.trustbar span::before{content:"✓";color:var(--mustard);font-weight:800;margin-right:8px}
+
+/* PROBLEM */
+.problem{background:var(--navy);color:var(--cream);text-align:center}
+.problem h2{font-size:clamp(1.6rem,3.4vw,2.5rem);margin:18px auto 26px;max-width:760px}
+.problem p{max-width:640px;margin:0 auto 18px;color:#dfe6ef}
+.problem .third{font-family:var(--disp);text-transform:uppercase;letter-spacing:.1em;color:var(--mustard);font-weight:800;margin-top:30px}
+
+/* PROMISE */
+.promise .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.promise h2{font-size:clamp(1.7rem,3.4vw,2.6rem);margin:16px 0 20px}
+.promise .eyebrow{justify-content:flex-start}
+.framed{border:3px solid var(--navy);border-radius:14px;overflow:hidden;box-shadow:10px 10px 0 var(--mustard)}
+@media(max-width:880px){.promise .grid{grid-template-columns:1fr}}
+
+/* FEATURES */
+.features{background:var(--cream2)}
+.features h2,.features .eyebrow{text-align:center}
+.features h2{font-size:clamp(1.7rem,3.4vw,2.6rem);margin:16px 0 48px}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px}
+.fcard{background:var(--cream);border:3px solid var(--navy);border-radius:14px;padding:30px;box-shadow:6px 6px 0 var(--navy);transition:transform .15s}
+.fcard:hover{transform:translateY(-5px)}
+.fcard .ic{width:58px;height:58px;border:3px solid var(--navy);border-radius:12px;background:var(--mustard);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.fcard .ic svg{width:30px;height:30px;stroke:var(--navy);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.fcard h3{font-size:1.05rem;margin-bottom:6px}
+.fcard .tag{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--orange);margin-bottom:12px;font-family:var(--disp)}
+.fcard p{font-size:.95rem}
+.included{margin-top:44px;text-align:center;font-size:.92rem;font-weight:600}
+.included b{color:var(--orange)}
+
+/* INTERIOR BLEED */
+.bleed{position:relative;border-top:3px solid var(--navy);border-bottom:3px solid var(--navy)}
+.bleed img{width:100%;height:520px;object-fit:cover}
+.bleed .quote{position:absolute;left:50%;bottom:34px;transform:translateX(-50%);background:var(--navy);color:var(--cream);
+  border:3px solid var(--mustard);border-radius:12px;padding:16px 26px;font-family:var(--disp);text-transform:uppercase;letter-spacing:.1em;font-weight:800;font-size:clamp(.8rem,2vw,1.05rem);white-space:nowrap;box-shadow:6px 6px 0 rgba(30,42,68,.4)}
+@media(max-width:640px){.bleed img{height:320px}.bleed .quote{white-space:normal;text-align:center;width:86%}}
+
+/* AUDIENCE */
+.aud h2,.aud .eyebrow{text-align:center}
+.aud h2{font-size:clamp(1.7rem,3.4vw,2.6rem);margin:16px 0 48px}
+.agrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:26px}
+.acard{border:3px solid var(--navy);border-radius:14px;overflow:hidden;background:var(--cream);box-shadow:6px 6px 0 var(--navy);display:flex;flex-direction:column}
+.acard .head{padding:14px 22px;font-family:var(--disp);text-transform:uppercase;letter-spacing:.14em;font-weight:800;font-size:.8rem;border-bottom:3px solid var(--navy)}
+.acard:nth-child(1) .head{background:var(--mustard)}.acard:nth-child(2) .head{background:var(--dblue);color:var(--cream)}
+.acard:nth-child(3) .head{background:var(--orange);color:var(--cream)}.acard:nth-child(4) .head{background:var(--navy);color:var(--cream)}
+.acard img{height:190px;width:100%;object-fit:cover;object-position:center 30%;border-bottom:3px solid var(--navy)}
+.acard .bd{padding:22px;display:flex;flex-direction:column;flex:1}
+.acard h3{font-size:1rem;margin-bottom:10px}
+.acard p{font-size:.92rem;flex:1}
+.acard a{margin-top:16px;font-family:var(--disp);text-transform:uppercase;font-size:.78rem;letter-spacing:.12em;font-weight:800;color:var(--orange);text-decoration:none;cursor:pointer}
+.acard a:hover{text-decoration:underline}
+
+/* PRICING */
+.pricing{background:var(--navy);color:var(--cream)}
+.pricing .eyebrow{color:var(--mustard)}.pricing .eyebrow::before,.pricing .eyebrow::after{background:var(--mustard)}
+.pricing h2{text-align:center;font-size:clamp(1.7rem,3.4vw,2.6rem);margin:16px 0 10px}
+.pricing .sub{text-align:center;max-width:560px;margin:0 auto 36px;color:#dfe6ef}
+.season{display:flex;justify-content:center;margin-bottom:44px}
+.season .tog{display:flex;border:3px solid var(--cream);border-radius:12px;overflow:hidden}
+.season button{font-family:var(--disp);text-transform:uppercase;letter-spacing:.1em;font-weight:800;font-size:.82rem;padding:13px 26px;background:transparent;color:var(--cream);border:none;cursor:pointer}
+.season button.on{background:var(--mustard);color:var(--navy)}
+.tickets{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:26px}
+.ticket{position:relative;background:var(--cream);color:var(--navy);border:3px solid var(--navy);border-radius:14px;padding:26px 26px 22px;box-shadow:6px 6px 0 rgba(0,0,0,.35);display:flex;flex-direction:column}
+.ticket::before,.ticket::after{content:"";position:absolute;width:26px;height:26px;background:var(--navy);border:3px solid var(--navy);border-radius:50%;top:50%;margin-top:-13px}
+.ticket::before{left:-16px}.ticket::after{right:-16px}
+.ticket .plan{font-family:var(--disp);text-transform:uppercase;letter-spacing:.16em;font-weight:800;font-size:.78rem;color:var(--orange)}
+.ticket .price{font-family:var(--disp);font-weight:900;font-size:2.5rem;margin:8px 0 2px}
+.ticket .per{font-size:.8rem;color:var(--brown);font-weight:700;margin-bottom:14px}
+.ticket ul{list-style:none;font-size:.88rem;margin-bottom:18px;flex:1}
+.ticket li{padding:5px 0;border-bottom:2px dashed rgba(30,42,68,.18)}
+.ticket li::before{content:"→ ";color:var(--orange);font-weight:800}
+.ticket .btn{width:100%;padding:13px}
+.ticket.hot{background:var(--mustard);transform:scale(1.03)}
+.ticket.hot .flag{position:absolute;top:-16px;left:50%;transform:translateX(-50%);background:var(--orange);color:var(--cream);border:3px solid var(--navy);border-radius:8px;font-family:var(--disp);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;font-weight:800;padding:5px 14px;white-space:nowrap}
+.morerow{margin-top:34px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.mini{border:2px solid rgba(244,237,222,.4);border-radius:10px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:.88rem;cursor:pointer;background:transparent;color:var(--cream);text-align:left;font-family:var(--body)}
+.mini:hover{border-color:var(--mustard)}
+.mini b{font-family:var(--disp);letter-spacing:.06em;white-space:nowrap}
+.extras{margin-top:46px;background:rgba(244,237,222,.07);border:2px dashed rgba(244,237,222,.4);border-radius:14px;padding:30px}
+.extras h3{color:var(--mustard);font-size:1rem;margin-bottom:14px;text-align:center}
+.extras ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px 26px;font-size:.9rem}
+.extras li::before{content:"＋ ";color:var(--mustard);font-weight:800}
+.extras .math{text-align:center;margin-top:16px;font-family:var(--disp);text-transform:uppercase;letter-spacing:.12em;font-size:.8rem;color:var(--mustard)}
+
+/* GUARANTEES */
+.guar h2,.guar .eyebrow{text-align:center}
+.guar h2{font-size:clamp(1.7rem,3.4vw,2.6rem);margin:16px 0 48px}
+.ggrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:26px}
+.gcard{border:3px solid var(--navy);border-radius:14px;padding:30px;background:var(--cream2);box-shadow:6px 6px 0 var(--dblue)}
+.gcard .seal{width:66px;height:66px;border-radius:50%;border:3px solid var(--navy);background:var(--orange);color:var(--cream);display:flex;align-items:center;justify-content:center;font-size:1.6rem;font-weight:900;margin-bottom:16px;font-family:var(--disp)}
+.gcard h3{font-size:1rem;margin-bottom:10px}
+.gcard p{font-size:.92rem}
+
+/* FOUNDERS */
+.founders{background:var(--band);border-top:3px solid var(--navy);border-bottom:3px solid var(--navy);position:relative}
+.founders .card{background:var(--cream);border:3px solid var(--navy);border-radius:18px;box-shadow:10px 10px 0 var(--navy);max-width:760px;margin:0 auto;padding:52px 44px;text-align:center}
+.founders h2{font-size:clamp(1.6rem,3.2vw,2.4rem);margin:14px 0 16px}
+.founders p{max-width:560px;margin:0 auto 26px}
+.counter{display:flex;justify-content:center;gap:8px;margin:26px 0 30px;flex-wrap:wrap}
+.spot{width:30px;height:30px;border:3px solid var(--navy);border-radius:6px;background:var(--navy)}
+.spot.free{background:var(--mustard);animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.14)}}
+.counter-label{font-family:var(--disp);text-transform:uppercase;letter-spacing:.16em;font-weight:800;font-size:.8rem;color:var(--orange);margin-bottom:6px}
+.founders small{display:block;margin-top:18px;color:var(--brown);font-size:.8rem}
+
+/* BOOKING SECTION */
+.booksec h2,.booksec .eyebrow{text-align:center}
+.booksec h2{font-size:clamp(1.7rem,3.4vw,2.6rem);margin:16px 0 14px}
+.booksec .sub{text-align:center;max-width:520px;margin:0 auto 40px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:26px;margin-bottom:44px}
+.step{border:3px solid var(--navy);border-radius:14px;padding:26px;background:var(--cream2);text-align:center}
+.step .n{font-family:var(--disp);font-weight:900;font-size:2rem;color:var(--orange)}
+.step h3{font-size:.95rem;margin:8px 0 8px}
+.step p{font-size:.88rem}
+.center{text-align:center}
+.micro{font-size:.8rem;color:var(--brown);margin-top:12px}
+
+/* FAQ */
+.faq{background:var(--cream2)}
+.faq h2,.faq .eyebrow{text-align:center}
+.faq h2{font-size:clamp(1.7rem,3.4vw,2.6rem);margin:16px 0 44px}
+.qa{max-width:760px;margin:0 auto}
+.qa details{border:3px solid var(--navy);border-radius:12px;background:var(--cream);margin-bottom:14px;overflow:hidden}
+.qa summary{cursor:pointer;list-style:none;padding:20px 24px;font-family:var(--disp);text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:.88rem;display:flex;justify-content:space-between;align-items:center;gap:14px}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"+";font-size:1.4rem;color:var(--orange);transition:transform .2s}
+.qa details[open] summary::after{transform:rotate(45deg)}
+.qa .ans{padding:0 24px 20px;font-size:.94rem}
+
+/* FINAL CTA */
+.final{background:var(--navy);color:var(--cream);text-align:center}
+.final h2{font-size:clamp(1.8rem,4vw,3rem);margin:18px 0 16px;max-width:800px;margin-inline:auto}
+.final p{max-width:560px;margin:0 auto 32px;color:#dfe6ef}
+.sun{width:120px;height:120px;margin:0 auto 10px;animation:spin 40s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* FOOTER */
+footer{background:var(--cream);border-top:3px solid var(--navy);padding:44px 0;text-align:center}
+footer img{height:88px;margin:0 auto 14px;mix-blend-mode:multiply}
+footer p{font-size:.82rem;color:var(--brown)}
+
+/* MODAL */
+.modal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+.modal.open{display:flex}
+.modal .backdrop{position:absolute;inset:0;background:rgba(30,42,68,.75)}
+.sheet{position:relative;background:var(--cream);border:3px solid var(--navy);border-radius:18px;box-shadow:12px 12px 0 var(--navy);width:100%;max-width:560px;max-height:90vh;overflow-y:auto;padding:38px 34px}
+.sheet .bandtop{height:12px;background:var(--band);border:3px solid var(--navy);border-radius:8px;margin-bottom:26px}
+.sheet h3{font-size:1.2rem;margin-bottom:6px}
+.sheet .sub{font-size:.88rem;color:var(--brown);margin-bottom:22px}
+.x{position:absolute;top:16px;right:16px;width:40px;height:40px;border:3px solid var(--navy);border-radius:10px;background:var(--cream);font-size:1.15rem;font-weight:800;cursor:pointer;color:var(--navy)}
+.planopt{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;text-align:left;border:3px solid var(--navy);border-radius:12px;background:var(--cream2);padding:15px 18px;margin-bottom:12px;cursor:pointer;font-family:var(--body);font-size:.92rem}
+.planopt:hover{background:var(--mustard)}
+.planopt b{font-family:var(--disp);letter-spacing:.05em}
+.planopt .pr{font-family:var(--disp);font-weight:900;white-space:nowrap}
+.planopt.free{background:var(--mustard)}
+.field{margin-bottom:16px}
+.field label{display:block;font-family:var(--disp);text-transform:uppercase;letter-spacing:.14em;font-size:.7rem;font-weight:800;margin-bottom:7px;color:var(--brown)}
+.field input,.field select{width:100%;border:3px solid var(--navy);border-radius:10px;background:#fff;padding:13px 14px;font-size:.95rem;font-family:var(--body);color:var(--navy)}
+.field input:focus,.field select:focus{outline:3px dashed var(--orange);outline-offset:2px}
+.err{color:#B3261E;font-size:.8rem;margin-top:5px;display:none}
+.summline{display:flex;justify-content:space-between;font-size:.9rem;padding:9px 0;border-bottom:2px dashed rgba(30,42,68,.2)}
+.summline.total{font-family:var(--disp);font-weight:900;font-size:1.05rem;border-bottom:none;padding-top:14px}
+.confirm{text-align:center}
+.confirm .code{font-family:var(--disp);font-weight:900;font-size:1.5rem;letter-spacing:.2em;background:var(--navy);color:var(--mustard);border-radius:12px;padding:14px;margin:18px 0}
+.note{font-size:.78rem;color:var(--brown);margin-top:14px}
+.back{background:none;border:none;font-family:var(--disp);text-transform:uppercase;letter-spacing:.12em;font-weight:800;font-size:.75rem;color:var(--brown);cursor:pointer;margin-bottom:16px}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-in">
+    <a class="brand" href="#top"><img data-asset="logo" alt="Panorama Co.Space logo"><span class="brand-name">Panorama Co.Space</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#features">The space</a></li>
+      <li><a href="#audience">Who it's for</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#founders">Founders 15</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="javascript:void(0)" class="nav-book" onclick="openBooking()">Book a desk</a></li>
+    </ul>
+    <button class="burger" aria-label="Menu" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <img class="hero-bg" data-asset="interior" alt="">
+  <div class="shade"></div>
+  <div class="wrap">
+    <svg class="bob" width="120" height="34" viewBox="0 0 120 34" aria-hidden="true" style="margin:0 auto 6px;display:block"><g fill="none" stroke="#F4EDDE" stroke-width="2.6" stroke-linecap="round"><path d="M10 20 Q18 10 26 18 Q34 10 42 20"/><path d="M72 14 Q79 5 86 12 Q93 5 100 14"/></g></svg>
+    <div class="eyebrow">Nesebar's first coworking space · 200m from the sea</div>
+    <h1>Do the best work of your year. With the Black Sea outside your window.</h1>
+    <p>Blazing WiFi 7, soundproof phone booths, and a desk that's ready in 5 minutes — so your career never notices you left. Book online, walk in, work.</p>
+    <div class="hero-ctas">
+      <button class="btn btn-primary" onclick="openBooking('free')">Claim your free first day</button>
+      <a class="btn btn-ghost" href="#pricing">See plans &amp; pricing</a>
+    </div>
+  </div>
+  <div class="trustbar">
+    <div class="wrap">
+      <span>First day free, no card required</span>
+      <span>WiFi down 15+ min = your day is free</span>
+      <span>Cancel anytime, no notice</span>
+    </div>
+  </div>
+</header>
+
+<section class="problem">
+  <div class="wrap reveal">
+    <div class="eyebrow">The old routine</div>
+    <h2>You didn't move to the sea to work from a kitchen table.</h2>
+    <p>The café with one power socket and WiFi that dies during your standup. The Airbnb chair that destroys your back by Thursday. The video call you take from a stairwell because the room echoes.</p>
+    <p>Or the alternative: 40 minutes on a bus to Burgas. Each way. Every day.</p>
+    <p>You came here to live better — not to work worse.</p>
+    <div class="third">There's now a third option. It's 5 minutes from where you're standing. ↓</div>
+  </div>
+</section>
+
+<section class="promise">
+  <div class="motif spin-slow" style="top:34px;right:44px" aria-hidden="true">
+    <svg width="110" height="110" viewBox="0 0 120 120"><g stroke="#E8B54D" stroke-width="3" stroke-linecap="round"><circle cx="60" cy="60" r="19" fill="#D9822B" stroke="#D9822B"/><path d="M60 12v16M60 92v16M12 60h16M92 60h16M26 26l11 11M83 83l11 11M94 26 83 37M37 83 26 94"/></g></svg>
+  </div>
+  <div class="wrap grid reveal">
+    <div>
+      <div class="eyebrow">The promise</div>
+      <h2>Everything your best workday needs. Nothing it doesn't.</h2>
+      <p>Walk in with a laptop. Within 5 minutes you have a fibre-fast connection, an ergonomic chair, an external monitor, and a soundproof booth waiting for your next call. Finish at 6 — and be in the sea by 6:15.</p>
+      <p style="margin-top:14px;font-weight:700">This is what remote work was supposed to feel like.</p>
+    </div>
+    <div class="framed"><img data-asset="desk" alt="Working at a desk with the sea and sunset outside the window"></div>
+  </div>
+</section>
+
+<div class="bandline"></div>
+
+<section class="features" id="features">
+  <div class="motif bob" style="top:44px;left:5%" aria-hidden="true">
+    <svg width="110" height="34" viewBox="0 0 120 34"><g fill="none" stroke="#4A6B8A" stroke-width="2.6" stroke-linecap="round"><path d="M10 22 Q18 12 26 20 Q34 12 42 22"/><path d="M70 12 Q77 3 84 10 Q91 3 98 12"/></g></svg>
+  </div>
+  <div class="wrap">
+    <div class="eyebrow reveal">The space</div>
+    <h2 class="reveal">Built for serious work</h2>
+    <div class="fgrid">
+      <div class="fcard reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M2 9a15 15 0 0 1 20 0M5.5 12.5a10 10 0 0 1 13 0M9 16a5 5 0 0 1 6 0"/><circle cx="12" cy="19" r="1.4" fill="#1E2A44"/></svg></div>
+        <h3>WiFi 7</h3><div class="tag">The fastest internet on the coast</div>
+        <p>Next-gen WiFi 7 on two independent providers with automatic failover and UPS backup. We publish live speed tests — and if it drops for more than 15 minutes during your day, your day is free. In writing.</p>
+      </div>
+      <div class="fcard reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="13" height="18" rx="2"/><path d="M17 8h3M17 12h3M17 16h3"/><circle cx="13.5" cy="12" r="1" fill="#1E2A44"/></svg></div>
+        <h3>Hot desks</h3><div class="tag">Мобилни места · Sit anywhere</div>
+        <p>Flexible desks with ergonomic chairs and external monitors at every station. Scan the QR code at the door and you're online before your coffee cools.</p>
+      </div>
+      <div class="fcard reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="14" height="9" rx="1.5"/><path d="M10 13v4M6 21h8M19 8h2M19 12h2"/></svg></div>
+        <h3>Private desks</h3><div class="tag">Прайвет места · Only 8 exist</div>
+        <p>A permanent desk that's yours 24/7. Leave your monitor and setup exactly as you left it. We publish the count — you know exactly how scarce they are.</p>
+      </div>
+      <div class="fcard reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="8" rx="8" ry="3.5"/><path d="M4 8v2c0 1.9 3.6 3.5 8 3.5s8-1.6 8-3.5V8M8 15.5V19M16 15.5V19M12 16v5"/></svg></div>
+        <h3>Conference room</h3><div class="tag">Where deals get closed</div>
+        <p>Big display, video conferencing, bookable by the hour through this site. Monthly members get 4 hours included. Finally an answer to "where do I meet my client?"</p>
+      </div>
+      <div class="fcard reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M2.5 9c1.2-1 1.2-2 0-3M4.8 11c2-1.8 2-5.2 0-7M21.5 9c-1.2-1-1.2-2 0-3M19.2 11c-2-1.8-2-5.2 0-7" opacity=".9"/></svg></div>
+        <h3>Phone booths</h3><div class="tag">Take the call, skip the stairwell</div>
+        <p>Private, soundproof booths for calls and video meetings. No echo, no background noise. Your clients will think you're in a downtown office — not 200m from the beach.</p>
+      </div>
+      <div class="fcard reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M18.4 5.6l-1.8 1.8M7.4 16.6l-1.8 1.8"/></svg></div>
+        <h3>24/7 access</h3><div class="tag">Your rhythm, not ours</div>
+        <p>Members get chip access around the clock. Early bird before the beach, night owl after dinner — the space runs on your schedule.</p>
+      </div>
+    </div>
+    <p class="included reveal">Also included: <b>air conditioning &amp; heating</b> · <b>unlimited coffee and tea</b> · <b>lockers with keys</b> · <b>printing &amp; scanning</b> · <b>mail and package reception</b></p>
+  </div>
+</section>
+
+<div class="bleed">
+  <img data-asset="interior" alt="Inside Panorama Co.Space — desks under an arched window facing the sea at sunset">
+  <div class="quote">Finish at 6. Be in the sea by 6:15.</div>
+</div>
+
+<section class="aud" id="audience">
+  <div class="motif bob" style="top:60px;right:6%" aria-hidden="true">
+    <svg width="86" height="86" viewBox="0 0 90 90"><g stroke="#1E2A44" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"><path d="M44 10v42" /><path d="M44 12 L20 50 H44 Z" fill="#E8B54D"/><path d="M48 16 L70 50 H48 Z" fill="#F4EDDE"/><path d="M16 56 H74 L64 70 H26 Z" fill="#D9822B"/><path d="M6 76 Q13 70 20 76 T34 76 T48 76 T62 76 T76 76 T90 76" fill="none" stroke="#4A6B8A"/></g></svg>
+  </div>
+  <div class="wrap">
+    <div class="eyebrow reveal">Who it's for</div>
+    <h2 class="reveal">Find your desk</h2>
+    <div class="agrid">
+      <div class="acard reveal">
+        <div class="head">Digital nomads</div>
+        <img data-asset="promenade" alt="A traveler arriving at the coworking space on the Nesebar promenade">
+        <div class="bd">
+          <h3>Work from paradise. Without the compromise.</h3>
+          <p>Western clients, sea-view lunches, and internet that never makes you choose between them. Stay connected all winter with the Reserved Seat plan.</p>
+          <a onclick="openBooking('season')">Get the Season Pass →</a>
+        </div>
+      </div>
+      <div class="acard reveal">
+        <div class="head">Remote professionals</div>
+        <div class="bd">
+          <h3>A serious workplace, 5 minutes from home</h3>
+          <p>Stop commuting to Burgas. Stop negotiating for the quiet corner of your apartment. Professional environment, 24/7 access, and colleagues again — right here in Nesebar.</p>
+          <a onclick="openBooking('month')">See monthly plans →</a>
+        </div>
+      </div>
+      <div class="acard reveal">
+        <div class="head">Startups &amp; teams</div>
+        <div class="bd">
+          <h3>Your team's summer HQ</h3>
+          <p>Private studios and team workation packages: 4 desks, priority conference room, guest passes — one email arranges everything, one invoice for the company.</p>
+          <a onclick="openBooking('workation')">Book a team package →</a>
+        </div>
+      </div>
+      <div class="acard reveal">
+        <div class="head">Company events</div>
+        <div class="bd">
+          <h3>Host it by the sea</h3>
+          <p>Evening and weekend rental of the full space for workshops, trainings, and team events. Presentation screen, conference setup, catering options nearby.</p>
+          <a onclick="openBooking('event')">Request event availability →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <div class="wrap">
+    <div class="eyebrow reveal">Pricing</div>
+    <h2 class="reveal">Transparent prices. A first for this coast.</h2>
+    <p class="sub reveal">No "contact us for prices." No hidden fees. What you see is what you pay — and every plan comes with a guarantee.</p>
+    <div class="season reveal">
+      <div class="tog" role="tablist">
+        <button class="on" id="togSummer" onclick="setSeason('summer')">Summer · May–Sep</button>
+        <button id="togWinter" onclick="setSeason('winter')">Winter · Oct–May</button>
+      </div>
+    </div>
+    <div class="tickets" id="ticketRow"></div>
+    <div class="morerow reveal" id="moreRow"></div>
+    <div class="extras reveal">
+      <h3>Every monthly membership includes over €130/month in extras</h3>
+      <ul>
+        <li><b>Client-Ready Package</b> (€60 value) — 4h conference room + 50 pages printing monthly</li>
+        <li><b>Your Address</b> (€29/mo value) — we receive your mail and packages</li>
+        <li><b>Personal locker</b> (€10/mo value) — leave your gear, travel light</li>
+        <li><b>2 guest passes monthly</b> (€30 value) — bring a colleague or client</li>
+        <li><b>Unlimited coffee &amp; tea</b> (€15/mo value)</li>
+      </ul>
+      <div class="math">You do the math. That's the point.</div>
+    </div>
+  </div>
+</section>
+
+<section class="guar">
+  <div class="motif" style="top:40px;right:5%" aria-hidden="true">
+    <svg width="96" height="80" viewBox="0 0 100 84"><g stroke="#1E2A44" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="58" cy="34" r="13" fill="#E8B54D"/><path d="M58 8v9M58 51v6M32 34h9M75 34h9M40 16l6 6M76 52l-4-4M76 16l-6 6"/><path d="M6 74 Q30 44 54 60 T98 62" fill="#9C6B3F" stroke="#1E2A44"/></g></svg>
+  </div>
+  <div class="wrap">
+    <div class="eyebrow reveal">Zero-risk</div>
+    <h2 class="reveal">We take the risk. You take the desk.</h2>
+    <div class="ggrid">
+      <div class="gcard reveal"><div class="seal">15'</div><h3>"A working day or you don't pay"</h3><p>If the internet is down for more than 15 minutes during your day, that day is free. Automatically.</p></div>
+      <div class="gcard reveal"><div class="seal">7d</div><h3>"First week — love it or full refund"</h3><p>Every monthly plan has a 7-day unconditional money-back guarantee. Not the best workspace you've had this year? We return every euro.</p></div>
+      <div class="gcard reveal"><div class="seal">0€</div><h3>"Free exit"</h3><p>Leave any month. No notice period, no exit fee, no gym-contract games.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="founders" id="founders">
+  <div class="wrap">
+    <div class="card reveal">
+      <div class="eyebrow">Limited · Never repeated</div>
+      <h2>Founders 15: €99/month.<br>Locked for life.</h2>
+      <p>The space holds 30 members. The first 15 get founder status: <b>€99/month instead of €139 — locked forever</b>, no matter how prices rise. Plus a founder's badge and your name on the wall.</p>
+      <div class="counter-label"><span id="spotsLeft">3</span> of 15 founder spots remaining</div>
+      <div class="counter" id="spotGrid"></div>
+      <button class="btn btn-navy" onclick="openBooking('founder')">Claim a founder spot</button>
+      <small>Founder sales are final — that's what makes the price permanent.</small>
+    </div>
+  </div>
+</section>
+
+<section class="booksec" id="book">
+  <div class="motif" style="bottom:34px;left:4%" aria-hidden="true">
+    <svg width="150" height="26" viewBox="0 0 160 26"><path d="M4 14 Q14 4 24 14 T44 14 T64 14 T84 14 T104 14 T124 14 T144 14" fill="none" stroke="#4A6B8A" stroke-width="3" stroke-linecap="round"/></svg>
+  </div>
+  <div class="wrap">
+    <div class="eyebrow reveal">Booking</div>
+    <h2 class="reveal">From browser to desk in 3 steps</h2>
+    <p class="sub reveal">Pick a date, pick a desk, get instant confirmation. Your WiFi code and access details arrive by email before you do.</p>
+    <div class="steps">
+      <div class="step reveal"><div class="n">1</div><h3>Book online</h3><p>Pick your day and desk in under a minute.</p></div>
+      <div class="step reveal"><div class="n">2</div><h3>Walk in</h3><p>Enter your door code at the entrance; WiFi, monitor, and coffee are waiting.</p></div>
+      <div class="step reveal"><div class="n">3</div><h3>Work</h3><p>First video call from a booth within the hour. Sea within the day.</p></div>
+    </div>
+    <div class="center reveal">
+      <button class="btn btn-primary" onclick="openBooking()">Book your desk</button>
+      <div class="micro">Free first day available every day. No card. No catch.</div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="eyebrow reveal">Questions</div>
+    <h2 class="reveal">Frequently asked</h2>
+    <div class="qa reveal">
+      <details><summary>Is the internet actually reliable?</summary><div class="ans">Two independent providers, automatic failover, UPS backup, and live speed tests published on this page. And if it fails for 15+ minutes during your day — the day is free. We put money behind the answer.</div></details>
+      <details><summary>How do I get in?</summary><div class="ans">After you book, you get a personal 6-digit door code by email. Type it on the keypad at the entrance — it's active from the start date of your booking.</div></details>
+      <details><summary>Can I take video calls?</summary><div class="ans">Yes — that's what the soundproof phone booths are for. Book one in the app or just step in when free.</div></details>
+      <details><summary>Do I need a contract?</summary><div class="ans">No. Day and week passes are one-off. Monthly plans renew automatically but cancel any month with zero notice.</div></details>
+      <details><summary>Can my company pay?</summary><div class="ans">Yes — we invoice companies directly (EU VAT invoices). The Workation Package is one email and one invoice for the whole team.</div></details>
+      <details><summary>What happens in winter?</summary><div class="ans">We stay open — with a €99/month local plan and a €990 annual plan (pay 10 months, get 2 free). Leaving in September? The Reserved Seat plan (€19/month) keeps your mail address, community access, 2 day passes monthly, and your locked summer price for next year.</div></details>
+      <details><summary>Where exactly are you?</summary><div class="ans">Central Nesebar — minutes from the old town, 200m from the beach. Exact address and map coming with the opening announcement.</div></details>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap reveal">
+    <svg class="sun" viewBox="0 0 120 120" aria-hidden="true"><g stroke="#E8B54D" stroke-width="3" stroke-linecap="round"><circle cx="60" cy="60" r="20" fill="#D9822B" stroke="#E8B54D"/><path d="M60 8v18M60 94v18M8 60h18M94 60h18M23 23l13 13M84 84l13 13M97 23L84 36M36 84L23 97"/></g></svg>
+    <h2>Your first day is free. Your best workday is next.</h2>
+    <p>No card. No commitment. Just walk in tomorrow and see why the coast's first real coworking space fills up fast.</p>
+    <button class="btn btn-primary" onclick="openBooking('free')">Claim your free day</button>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <img data-asset="logo" alt="Panorama Co.Space">
+    <p>Panorama Co.Space · Nesebar, Bulgaria · hello@panoramaco.work<br>© 2026 Panorama Co.Space. Prices include VAT.</p>
+  </div>
+</footer>
+
+<!-- BOOKING MODAL -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Book a desk">
+  <div class="backdrop" onclick="closeBooking()"></div>
+  <div class="sheet">
+    <button class="x" onclick="closeBooking()" aria-label="Close">✕</button>
+    <div class="bandtop"></div>
+    <div id="mBody"></div>
+  </div>
+</div>
+
+<script>
+/* ---------- data ---------- */
+const PLANS = {
+  free:{name:"Free First Day",price:0,unit:"one time",summer:true,winter:true,desc:"Try everything. No card required."},
+  day:{name:"Day Pass",price:15,wprice:12,unit:"per day",desc:"Drop in, plug in, get it done."},
+  week:{name:"Week Pass",price:55,wprice:45,unit:"per week",desc:"A working holiday, done right."},
+  month:{name:"Monthly Flex",price:139,wprice:99,unit:"per month",desc:"24/7 access + €130 of extras included."},
+  flex10:{name:"Flex 10",price:89,wprice:89,unit:"10 days / 6 months",desc:"Any 10 workdays over 6 months."},
+  season:{name:"Season Pass",price:399,unit:"16 weeks",summerOnly:true,desc:"3 months + the 4th free."},
+  annual:{name:"Annual (locals)",price:990,unit:"per year",winterOnly:true,desc:"Pay 10 months, get 2 free."},
+  reserved:{name:"Reserved Seat",price:19,unit:"per month",winterOnly:true,desc:"Mail address, community, 2 day passes/mo, locked summer price."},
+  fixed:{name:"Private Desk",price:179,wprice:179,unit:"per month",desc:"Yours 24/7 — only 8 available."},
+  studio:{name:"Team Studio",price:690,wprice:690,unit:"per month",desc:"Private room for your whole team — 2 available."},
+  workation:{name:"Workation Package",price:1190,unit:"per month",summerOnly:true,desc:"4 desks + priority meeting room + guest passes."},
+  virtual:{name:"Virtual Office",price:29,wprice:29,unit:"per month",desc:"A business address by the sea."},
+  founder:{name:"Founders 15",price:99,unit:"per month · locked for life",desc:"€99 forever instead of €139. Badge + name on the wall."},
+  event:{name:"Event Rental",price:null,unit:"evening / weekend",desc:"Full-space rental for events — we reply within 24h with availability."}
+};
+let season="summer";
+
+/* ---------- season by date (must match server logic in lib/plans.ts) ---------- */
+function seasonFor(dateStr){
+  if(!dateStr)return season;
+  const parts=dateStr.split("-").map(Number);
+  if(parts.length!==3||parts.some(isNaN))return season;
+  const m=parts[1],d=parts[2];
+  const summer=(m===5&&d>=15)||(m>=6&&m<=9);
+  return summer?"summer":"winter";
+}
+function priceFor(key,dateStr){
+  const p=PLANS[key];
+  if(p.price===null)return null;
+  const s=seasonFor(dateStr);
+  return (s==="winter"&&p.wprice!==undefined)?p.wprice:p.price;
+}
+
+/* ---------- pricing render ---------- */
+function ticketHTML(key,hot,flag){
+  const p=PLANS[key];
+  const price = (season==="winter"&&p.wprice!==undefined)?p.wprice:p.price;
+  const shown = price===0?"Free":(price===null?"On request":"€"+price);
+  const feats={
+    free:["Full access for one day","Hot desk + phone booths","Coffee included","No card required"],
+    day:["Hot desk 9:00–19:00","Phone booth access","Unlimited coffee &amp; tea","Instant online booking"],
+    week:["7 consecutive days","Hot desk + booths","Locker for the week","Credit toward a month"],
+    month:["24/7 chip access","All €130+/mo extras","4h conference room","7-day money-back guarantee"],
+    season:["16 weeks of your choice","Everything in Monthly","Auto-converts to Reserved Seat","Best €/week on the coast"],
+    annual:["12 months for the price of 10","24/7 access all winter","All member extras","Locked price for the year"]
+  }[key]||[];
+  return `<div class="ticket reveal in ${hot?'hot':''}">
+    ${flag?`<div class="flag">${flag}</div>`:''}
+    <div class="plan">${p.name}</div>
+    <div class="price">${shown}</div>
+    <div class="per">${p.unit}${season==="winter"&&key==="month"?" · winter rate":""}</div>
+    <ul>${feats.map(f=>`<li>${f}</li>`).join("")}</ul>
+    <button class="btn ${hot?'btn-navy':'btn-primary'}" onclick="openBooking('${key}')">${price===0?"Claim free day":"Choose "+p.name}</button>
+  </div>`;
+}
+function renderPricing(){
+  const row=document.getElementById("ticketRow"), more=document.getElementById("moreRow");
+  if(season==="summer"){
+    row.innerHTML=ticketHTML("free")+ticketHTML("day")+ticketHTML("month",true,"Most popular")+ticketHTML("season",false,"Best value");
+    more.innerHTML=miniRow(["week","flex10","fixed","studio","workation","virtual"]);
+  }else{
+    row.innerHTML=ticketHTML("free")+ticketHTML("month",true,"Winter rate €99")+ticketHTML("annual",false,"2 months free")+ticketHTML("day");
+    more.innerHTML=miniRow(["week","flex10","reserved","fixed","studio","virtual"]);
+  }
+}
+function miniRow(keys){
+  return keys.map(k=>{
+    const p=PLANS[k];
+    const price=(season==="winter"&&p.wprice!==undefined)?p.wprice:p.price;
+    return `<button class="mini" onclick="openBooking('${k}')"><span>${p.name}</span><b>${price===null?"Ask":"€"+price}</b></button>`;
+  }).join("");
+}
+function setSeason(s){
+  season=s;
+  document.getElementById("togSummer").classList.toggle("on",s==="summer");
+  document.getElementById("togWinter").classList.toggle("on",s==="winter");
+  renderPricing();
+}
+
+/* ---------- founders counter ---------- */
+const TAKEN=12,TOTAL=15;
+(function(){
+  const g=document.getElementById("spotGrid");
+  for(let i=0;i<TOTAL;i++){const d=document.createElement("div");d.className="spot"+(i>=TAKEN?" free":"");g.appendChild(d);}
+  document.getElementById("spotsLeft").textContent=TOTAL-TAKEN;
+})();
+
+/* ---------- booking modal ---------- */
+const modal=document.getElementById("modal"),mBody=document.getElementById("mBody");
+let sel=null;
+function openBooking(key){
+  modal.classList.add("open");document.body.style.overflow="hidden";
+  if(key&&PLANS[key]){sel=key;stepDetails();}else{sel=null;stepPlans();}
+}
+function closeBooking(){modal.classList.remove("open");document.body.style.overflow="";}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeBooking();});
+
+function stepPlans(){
+  const order=["free","day","week","flex10","month","season","annual","reserved","fixed","studio","workation","virtual","founder","event"];
+  mBody.innerHTML=`<h3>Book in 60 seconds</h3><div class="sub">Step 1 of 2 — choose your plan</div>`+
+    order.map(k=>{const p=PLANS[k];const pr=p.price===0?"Free":(p.price===null?"On request":"€"+p.price);
+      return `<button class="planopt ${k==='free'?'free':''}" onclick="sel='${k}';stepDetails()"><span><b>${p.name}</b><br><span style="font-size:.8rem;color:var(--brown)">${p.desc}</span></span><span class="pr">${pr}</span></button>`;}).join("");
+}
+function stepDetails(){
+  const p=PLANS[sel];
+  const today=new Date();today.setDate(today.getDate()+1);
+  const min=today.toISOString().split("T")[0];
+  const isEvent=sel==="event";
+  const pr=priceFor(sel,min);
+  mBody.innerHTML=`
+    <button class="back" onclick="stepPlans()">← Change plan</button>
+    <h3>${p.name}</h3><div class="sub">${p.desc}</div>
+    <div class="field"><label for="bDate">${isEvent?"Preferred date":"Start date"}</label><input type="date" id="bDate" min="${min}" value="${min}" onchange="updateDue()"></div>
+    <div class="field"><label for="bName">Full name</label><input type="text" id="bName" placeholder="Ivan Petrov" autocomplete="name"><div class="err" id="eName">Enter your name so we can greet you at the door.</div></div>
+    <div class="field"><label for="bMail">Email</label><input type="email" id="bMail" placeholder="you@company.com" autocomplete="email"><div class="err" id="eMail">Enter a valid email — your access code arrives there.</div></div>
+    ${sel==="workation"||sel==="studio"||isEvent?`<div class="field"><label for="bCo">Company (for the invoice)</label><input type="text" id="bCo" placeholder="Company Ltd."></div>`:""}
+    <div style="margin:20px 0 24px">
+      <div class="summline"><span>${p.name}</span><span id="linePlan">${pr===0?"Free":(pr===null?"Quote within 24h":"€"+pr)}</span></div>
+      ${sel==="free"?`<div class="summline"><span>Card required</span><span>None</span></div>`:""}
+      ${sel==="founder"?`<div class="summline"><span>Price lock</span><span>Lifetime</span></div>`:""}
+      <div class="summline total"><span>Due today</span><span id="lineDue">${pr===0||pr===null?"€0":"€"+pr}</span></div>
+    </div>
+    <button id="bookBtn" class="btn btn-primary" style="width:100%" onclick="submitBooking()">${isEvent?"Send request":(pr===0?"Confirm free day":"Continue to secure payment")}</button>
+    <div class="err" id="eSubmit" style="margin-top:12px"></div>
+    <div class="note">${sel==="free"?"No payment step. Just show up — your door code arrives by email.":"Secure card payment via Stripe. 7-day money-back guarantee on all monthly plans. Cancel anytime."}</div>`;
+}
+function updateDue(){
+  const date=document.getElementById("bDate").value;
+  const pr=priceFor(sel,date);
+  const planLine=document.getElementById("linePlan"),dueLine=document.getElementById("lineDue");
+  if(planLine)planLine.textContent=pr===0?"Free":(pr===null?"Quote within 24h":"€"+pr);
+  if(dueLine)dueLine.textContent=pr===0||pr===null?"€0":"€"+pr;
+}
+async function submitBooking(){
+  const name=document.getElementById("bName"),mail=document.getElementById("bMail");
+  const validName=!!name.value.trim();
+  const validMail=/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail.value);
+  document.getElementById("eName").style.display=validName?"none":"block";
+  document.getElementById("eMail").style.display=validMail?"none":"block";
+  if(!validName||!validMail)return;
+  const p=PLANS[sel];
+  const date=document.getElementById("bDate").value;
+  const coEl=document.getElementById("bCo");
+  const btn=document.getElementById("bookBtn");
+  const errEl=document.getElementById("eSubmit");
+  errEl.style.display="none";
+  const label=btn.textContent;
+  btn.disabled=true;btn.textContent="One moment…";
+  const payload={plan:sel,date,name:name.value.trim(),email:mail.value.trim(),company:coEl?coEl.value.trim():""};
+  try{
+    if(sel==="event"||p.price===0||p.price===null){
+      const res=await fetch("/api/free-booking",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+      const data=await res.json().catch(()=>({}));
+      if(!res.ok)throw new Error(data.error||"Something went wrong.");
+      showConfirm(data,payload);
+    }else{
+      const res=await fetch("/api/checkout",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+      const data=await res.json().catch(()=>({}));
+      if(!res.ok||!data.url)throw new Error(data.error||"Something went wrong.");
+      window.location.href=data.url;
+      return;
+    }
+  }catch(e){
+    errEl.textContent=(e&&e.message?e.message:"Something went wrong.")+" Please try again, or email hello@panoramaco.work.";
+    errEl.style.display="block";
+    btn.disabled=false;btn.textContent=label;
+  }
+}
+function showConfirm(data,payload){
+  const p=PLANS[sel];
+  const isEvent=sel==="event";
+  mBody.innerHTML=`<div class="confirm">
+    <div class="eyebrow" style="justify-content:center">${isEvent?"Request sent":"Booked"}</div>
+    <h3 style="margin-top:14px">${isEvent?"We'll reply within 24 hours":"See you at the space, "+payload.name.split(" ")[0]+"!"}</h3>
+    ${data.code?`<div class="code">${data.code}</div><p style="font-size:.9rem">Your door code. Type it on the keypad at the entrance — active from your start date.</p>`:""}
+    <p style="font-size:.9rem;margin-top:10px"><b>${p.name}</b> · ${isEvent?"preferred date":"starting"} <b>${payload.date}</b><br>Confirmation ${isEvent?"":"and your door code "}sent to <b>${payload.email}</b>.</p>
+    <button class="btn btn-primary" style="margin-top:22px" onclick="closeBooking()">Done</button>
+  </div>`;
+}
+
+/* ---------- asset injection ---------- */
+const ASSETS={logo:"img/logo.jpg",interior:"img/interior.jpg",desk:"img/desk.jpg",promenade:"img/promenade.jpg"};
+document.querySelectorAll("[data-asset]").forEach(el=>{const d=ASSETS[el.dataset.asset];if(d){el.onerror=()=>{el.removeAttribute("src");el.style.visibility="hidden";};el.src=d;el.style.visibility="visible";}});
+
+/* ---------- scroll reveal ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}}),{threshold:.12});
+document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+document.querySelectorAll('.nav-links a[href^="#"]').forEach(a=>a.addEventListener("click",()=>document.getElementById("navLinks").classList.remove("open")));
+
+renderPricing();
+</script>
+</body>
+</html>

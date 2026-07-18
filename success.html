@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<meta name="robots" content="noindex">
+<title>Booking confirmed — Panorama Co.Space</title>
+<style>
+:root{color-scheme:light only;
+  --cream:#F4EDDE; --navy:#1E2A44; --mustard:#E8B54D; --orange:#D9822B; --brown:#9C6B3F;
+  --band:linear-gradient(180deg,#4A6B8A 0 14.28%,#7C93A3 0 28.57%,#C4B98A 0 42.85%,#E8B54D 0 57.14%,#E39A3B 0 71.42%,#D9822B 0 85.71%,#C56A24 0 100%);
+  --disp:"Futura","Avenir Next","Century Gothic","Trebuchet MS",sans-serif;
+  --body:"Avenir Next","Avenir","Segoe UI","Helvetica Neue",sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--body);background:var(--cream);color:var(--navy);line-height:1.6;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.card{position:relative;background:var(--cream);border:3px solid var(--navy);border-radius:18px;box-shadow:12px 12px 0 var(--navy);width:100%;max-width:560px;padding:38px 34px;text-align:center}
+.bandtop{height:12px;background:var(--band);border:3px solid var(--navy);border-radius:8px;margin-bottom:26px}
+.eyebrow{font-family:var(--disp);text-transform:uppercase;letter-spacing:.22em;font-size:.72rem;font-weight:700;color:var(--orange)}
+h1{font-family:var(--disp);text-transform:uppercase;letter-spacing:.04em;line-height:1.12;font-size:1.4rem;margin:14px 0 10px}
+p{font-size:.92rem;margin-top:10px}
+.code{font-family:var(--disp);font-weight:900;font-size:1.7rem;letter-spacing:.28em;background:var(--navy);color:var(--mustard);border-radius:12px;padding:16px;margin:20px 0 8px}
+.hint{font-size:.8rem;color:var(--brown)}
+.btn{display:inline-block;font-family:var(--disp);text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:.9rem;padding:16px 30px;border:3px solid var(--navy);border-radius:10px;cursor:pointer;text-decoration:none;background:var(--mustard);color:var(--navy);box-shadow:4px 4px 0 var(--navy);transition:transform .15s,box-shadow .15s;margin-top:24px}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--navy)}
+.muted{color:var(--brown)}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="bandtop"></div>
+    <div id="content">
+      <div class="eyebrow">One moment</div>
+      <h1>Confirming your payment…</h1>
+      <p class="muted">This usually takes a second or two.</p>
+    </div>
+  </div>
+<script>
+const el=document.getElementById("content");
+const sid=new URLSearchParams(location.search).get("session_id");
+function fallback(){
+  el.innerHTML=`<div class="eyebrow">Thank you</div>
+  <h1>You're booked!</h1>
+  <p>If your payment completed, your confirmation and 6-digit door code are on their way to your inbox.</p>
+  <p class="hint">Nothing after a few minutes? Check spam, or email hello@panoramaco.work.</p>
+  <a class="btn" href="/">Back to Panorama Co.Space</a>`;
+}
+function notPaid(){
+  el.innerHTML=`<div class="eyebrow">Not confirmed</div>
+  <h1>We couldn't confirm this payment</h1>
+  <p>If you completed payment just now, give it a minute — your confirmation and door code will arrive by email.</p>
+  <p>If you cancelled, nothing was charged. You can book again anytime.</p>
+  <p class="hint">Questions? Email hello@panoramaco.work.</p>
+  <a class="btn" href="/#pricing">Back to plans</a>`;
+}
+if(!sid){fallback();}
+else{
+  fetch("/api/session-status?session_id="+encodeURIComponent(sid))
+    .then(r=>r.ok?r.json():Promise.reject())
+    .then(d=>{
+      if(!d.paid)return notPaid();
+      const first=d.name?", "+d.name.split(" ")[0]:"";
+      el.innerHTML=`<div class="eyebrow">Booked</div>
+      <h1>See you at the space${first}!</h1>
+      <div class="code">${d.code}</div>
+      <p class="hint">Your door code. Type it on the keypad at the entrance — active from your start date.</p>
+      <p><b>${d.planName}</b>${d.date?` · starting <b>${d.date}</b>`:""} · ${d.amount}<br>A confirmation with this code was sent to <b>${d.email}</b>.</p>
+      <a class="btn" href="/">Done</a>`;
+    })
+    .catch(fallback);
+}
+</script>
+</body>
+</html>
