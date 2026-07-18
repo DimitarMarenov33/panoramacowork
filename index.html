@@ -74,6 +74,9 @@ nav{position:sticky;top:0;z-index:100;background:rgba(244,237,222,.94);backdrop-
 /* HERO */
 .hero{position:relative;min-height:92vh;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--cream);padding:120px 0 140px;overflow:hidden;background:var(--band)}
 .hero .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero .hero-video{pointer-events:none}
+.hero.kenburns .hero-bg{animation:heroZoom 24s ease-in-out infinite alternate}
+@keyframes heroZoom{from{transform:scale(1)}to{transform:scale(1.08)}}
 .hero .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,42,68,.5),rgba(30,42,68,.74))}
 .hero .wrap{position:relative;z-index:2;max-width:900px}
 .hero .eyebrow{color:var(--mustard)}.hero .eyebrow::before,.hero .eyebrow::after{background:var(--mustard)}
@@ -269,7 +272,7 @@ footer p{font-size:.82rem;color:var(--brown)}
 
 <header class="hero" id="top">
   <img class="hero-bg" src="img/hero-poster.jpg" alt="">
-  <video id="heroVideo" class="hero-bg hero-video" autoplay muted loop playsinline preload="auto" poster="img/hero-poster.jpg" aria-hidden="true">
+  <video id="heroVideo" class="hero-bg hero-video" autoplay muted loop playsinline preload="auto" poster="img/hero-poster.jpg" aria-hidden="true" disablepictureinpicture disableremoteplayback controlslist="nodownload nofullscreen noremoteplayback noplaybackrate">
     <source src="img/hero.mp4" type="video/mp4">
   </video>
   <div class="shade"></div>
@@ -723,17 +726,21 @@ document.querySelectorAll("[data-asset]").forEach(el=>{const d=ASSETS[el.dataset
 
 /* ---------- hero video: play on entry, loop forever ---------- */
 const hv=document.getElementById("heroVideo");
+const heroSec=document.querySelector(".hero");
 if(hv){
   hv.muted=true;hv.defaultMuted=true;hv.loop=true;hv.autoplay=true;hv.setAttribute("playsinline","");
   const tryPlay=()=>{if(hv.paused)hv.play().catch(()=>{});};
+  const boot=()=>tryPlay();
+  if(hv.readyState>=3)boot();else{hv.addEventListener("canplay",boot,{once:true});hv.load();}
   tryPlay();
-  ["loadedmetadata","loadeddata","canplay","canplaythrough"].forEach(ev=>hv.addEventListener(ev,tryPlay));
   hv.addEventListener("ended",()=>{hv.currentTime=0;tryPlay();});
   hv.addEventListener("pause",()=>{if(!document.hidden)setTimeout(tryPlay,150);});
   document.addEventListener("visibilitychange",()=>{if(!document.hidden)tryPlay();});
-  window.addEventListener("pointerdown",tryPlay,{once:true});
-  window.addEventListener("touchstart",tryPlay,{once:true,passive:true});
-  window.addEventListener("scroll",tryPlay,{once:true,passive:true});
+  ["pointerdown","touchstart","scroll","keydown"].forEach(ev=>window.addEventListener(ev,tryPlay,{once:true,passive:true}));
+  /* watchdog: if autoplay is refused, the hero still moves (slow zoom), and it
+     switches back to the video the moment real playback starts */
+  setTimeout(()=>{if(hv.currentTime<0.2)heroSec.classList.add("kenburns");},1800);
+  hv.addEventListener("timeupdate",()=>{if(hv.currentTime>0.2)heroSec.classList.remove("kenburns");});
 }
 
 /* ---------- scroll reveal ---------- */
