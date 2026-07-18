@@ -1,7 +1,7 @@
 import Stripe from 'stripe';
-import { PLANS, isPlanKey, formatEur } from '../lib/plans';
-import { doorCodeFor } from '../lib/code';
-import { sendBookingEmails } from '../lib/email';
+import { PLANS, isPlanKey, formatEur } from '../lib/plans.js';
+import { doorCodeFor } from '../lib/code.js';
+import { sendBookingEmails } from '../lib/email.js';
 
 // Stripe webhook: on a completed, paid Checkout session we generate the door
 // code and email both the client and the owner. The code is derived

@@ -1,6 +1,6 @@
 import Stripe from 'stripe';
-import { PLANS, isPlanKey, formatEur } from '../lib/plans';
-import { doorCodeFor } from '../lib/code';
+import { PLANS, isPlanKey, formatEur } from '../lib/plans.js';
+import { doorCodeFor } from '../lib/code.js';
 
 // Used by success.html after Stripe redirects back: looks up the Checkout
 // session and returns the booking details plus the same deterministic door

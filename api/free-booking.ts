@@ -1,6 +1,6 @@
-import { PLANS, isPlanKey, isValidBookingDate, isValidEmail } from '../lib/plans';
-import { randomDoorCode } from '../lib/code';
-import { sendBookingEmails, sendInquiryEmails } from '../lib/email';
+import { PLANS, isPlanKey, isValidBookingDate, isValidEmail } from '../lib/plans.js';
+import { randomDoorCode } from '../lib/code.js';
+import { sendBookingEmails, sendInquiryEmails } from '../lib/email.js';
 
 // Handles the two flows that don't go through Stripe:
 //  - "free"  → Free First Day: generate a door code, email client + owner.

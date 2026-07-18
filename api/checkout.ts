@@ -1,5 +1,5 @@
 import Stripe from 'stripe';
-import { PLANS, priceCents, isPlanKey, isValidBookingDate, isValidEmail } from '../lib/plans';
+import { PLANS, priceCents, isPlanKey, isValidBookingDate, isValidEmail } from '../lib/plans.js';
 
 const json = (data: unknown, status = 200) =>
   new Response(JSON.stringify(data), { status, headers: { 'Content-Type': 'application/json' } });
