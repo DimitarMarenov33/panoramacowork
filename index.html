@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light only">
 <meta name="supported-color-schemes" content="light">
-<title>Panorama Co.Space — Coworking in Nesebar, 200m from the sea</title>
+<title>Panorama Co.Work — Coworking in Nesebar, 200m from the sea</title>
 <style>
 :root{color-scheme:light only;
   --cream:#F4EDDE; --cream2:#EFE5CF; --navy:#1E2A44; --navy2:#16203a;
@@ -16,7 +16,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}.hero-video{display:none!important}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 body{font-family:var(--body);background:var(--cream);color:var(--navy);line-height:1.6;overflow-x:hidden}
 body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;z-index:9999;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E")}
@@ -253,7 +253,7 @@ footer p{font-size:.82rem;color:var(--brown)}
 
 <nav>
   <div class="wrap nav-in">
-    <a class="brand" href="#top"><img data-asset="logo" alt="Panorama Co.Space logo"><span class="brand-name">Panorama Co.Space</span></a>
+    <a class="brand" href="#top"><img data-asset="logo" alt="Panorama Co.Work logo"><span class="brand-name">Panorama Co.Work</span></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#features">The space</a></li>
       <li><a href="#audience">Who it's for</a></li>
@@ -363,7 +363,7 @@ footer p{font-size:.82rem;color:var(--brown)}
 </section>
 
 <div class="bleed">
-  <img data-asset="interior" alt="Inside Panorama Co.Space — desks under an arched window facing the sea at sunset">
+  <img data-asset="interior" alt="Inside Panorama Co.Work — desks under an arched window facing the sea at sunset">
   <div class="quote">Finish at 6. Be in the sea by 6:15.</div>
 </div>
 
@@ -515,8 +515,8 @@ footer p{font-size:.82rem;color:var(--brown)}
 
 <footer>
   <div class="wrap">
-    <img data-asset="logo" alt="Panorama Co.Space">
-    <p>Panorama Co.Space · Nesebar, Bulgaria · hello@panoramaco.work<br>© 2026 Panorama Co.Space. Prices include VAT.</p>
+    <img data-asset="logo" alt="Panorama Co.Work">
+    <p>Panorama Co.Work · Nesebar, Bulgaria · hello@panoramaco.work<br>© 2026 Panorama Co.Work. Prices include VAT.</p>
   </div>
 </footer>
 
@@ -721,15 +721,19 @@ document.querySelectorAll("[data-asset]").forEach(el=>{const d=ASSETS[el.dataset
   el.src=d;el.style.visibility="visible";
 }});
 
-/* ---------- hero video: make sure autoplay actually starts ---------- */
+/* ---------- hero video: play on entry, loop forever ---------- */
 const hv=document.getElementById("heroVideo");
 if(hv){
-  hv.muted=true;
+  hv.muted=true;hv.defaultMuted=true;hv.loop=true;hv.autoplay=true;hv.setAttribute("playsinline","");
   const tryPlay=()=>{if(hv.paused)hv.play().catch(()=>{});};
   tryPlay();
-  hv.addEventListener("canplay",tryPlay);
+  ["loadedmetadata","loadeddata","canplay","canplaythrough"].forEach(ev=>hv.addEventListener(ev,tryPlay));
+  hv.addEventListener("ended",()=>{hv.currentTime=0;tryPlay();});
+  hv.addEventListener("pause",()=>{if(!document.hidden)setTimeout(tryPlay,150);});
   document.addEventListener("visibilitychange",()=>{if(!document.hidden)tryPlay();});
   window.addEventListener("pointerdown",tryPlay,{once:true});
+  window.addEventListener("touchstart",tryPlay,{once:true,passive:true});
+  window.addEventListener("scroll",tryPlay,{once:true,passive:true});
 }
 
 /* ---------- scroll reveal ---------- */

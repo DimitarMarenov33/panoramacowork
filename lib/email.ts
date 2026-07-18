@@ -22,7 +22,7 @@ function ownerEmail(): string {
 
 function fromAddress(): string {
   // Until panoramaco.work is verified in Resend, use their onboarding sender.
-  return process.env.FROM_EMAIL || 'Panorama Co.Space <onboarding@resend.dev>';
+  return process.env.FROM_EMAIL || 'Panorama Co.Work <onboarding@resend.dev>';
 }
 
 export async function sendEmail(to: string, subject: string, html: string): Promise<void> {
@@ -58,7 +58,7 @@ function shell(title: string, inner: string): string {
 <html><body style="margin:0;padding:0;background:${CREAM};font-family:'Avenir Next',Avenir,'Segoe UI','Helvetica Neue',sans-serif;color:${NAVY};">
   <div style="max-width:560px;margin:0 auto;padding:24px 16px;">
     <div style="background:${NAVY};border:3px solid ${NAVY};border-radius:14px 14px 0 0;padding:18px 26px;">
-      <span style="color:${CREAM};font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:14px;">Panorama Co.Space</span>
+      <span style="color:${CREAM};font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:14px;">Panorama Co.Work</span>
       <span style="color:${MUSTARD};font-size:12px;float:right;padding-top:2px;">Nesebar · 200m from the sea</span>
     </div>
     <div style="background:#fff;border:3px solid ${NAVY};border-top:0;border-radius:0 0 14px 14px;padding:28px 26px;">
@@ -66,7 +66,7 @@ function shell(title: string, inner: string): string {
       ${inner}
     </div>
     <p style="font-size:11px;color:${BROWN};text-align:center;margin-top:14px;">
-      Panorama Co.Space · Nesebar, Bulgaria · <a href="mailto:hello@panoramaco.work" style="color:${BROWN};">hello@panoramaco.work</a> · <a href="https://panoramaco.work" style="color:${BROWN};">panoramaco.work</a><br>
+      Panorama Co.Work · Nesebar, Bulgaria · <a href="mailto:hello@panoramaco.work" style="color:${BROWN};">hello@panoramaco.work</a> · <a href="https://panoramaco.work" style="color:${BROWN};">panoramaco.work</a><br>
       Prices include VAT.
     </p>
   </div>
@@ -98,7 +98,7 @@ export function clientBookingEmail(b: BookingDetails): { subject: string; html: 
     ])}
     ${b.code ? codeBlock(b.code) : ''}
     <p style="font-size:13px;color:${BROWN};">Doors, WiFi, coffee and an external monitor will be waiting. If anything's off — including WiFi down for more than 15 minutes — that day is free. Just reply to this email.</p>`;
-  return { subject: `You're booked — ${b.planName} at Panorama Co.Space`, html: shell("You're booked", inner) };
+  return { subject: `You're booked — ${b.planName} at Panorama Co.Work`, html: shell("You're booked", inner) };
 }
 
 export function ownerBookingEmail(b: BookingDetails): { subject: string; html: string } {
@@ -127,7 +127,7 @@ export function clientInquiryEmail(b: BookingDetails): { subject: string; html: 
       ...(b.company ? ([['Company', b.company]] as Array<[string, string]>) : []),
     ])}
     <p style="font-size:13px;color:${BROWN};">In a hurry? Just reply to this email.</p>`;
-  return { subject: 'We got your event request — Panorama Co.Space', html: shell('Request received', inner) };
+  return { subject: 'We got your event request — Panorama Co.Work', html: shell('Request received', inner) };
 }
 
 export function ownerInquiryEmail(b: BookingDetails): { subject: string; html: string } {

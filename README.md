@@ -1,4 +1,4 @@
-# Panorama Co.Space — panoramaco.work
+# Panorama Co.Work — panoramaco.work
 
 Booking website for Nesebar's first coworking space. Static landing page + Vercel
 serverless functions: visitors pick a plan and start date, pay with Stripe, and
@@ -94,7 +94,7 @@ missing images hide themselves.
 | `STRIPE_WEBHOOK_SECRET` | `whsec_…` from step 2.3 |
 | `RESEND_API_KEY` | `re_…` |
 | `OWNER_EMAIL` | where booking notifications go (defaults to `dev@gmu.online`) |
-| `FROM_EMAIL` | `Panorama Co.Space <bookings@panoramaco.work>` (after domain verify) |
+| `FROM_EMAIL` | `Panorama Co.Work <bookings@panoramaco.work>` (after domain verify) |
 | `SITE_URL` | `https://panoramaco.work` |
 | `CODE_SECRET` | any long random string — **changing it changes all future door codes** |
 

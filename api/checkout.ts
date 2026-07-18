@@ -52,7 +52,7 @@ export async function POST(request: Request): Promise<Response> {
             currency: 'eur',
             unit_amount: amount,
             product_data: {
-              name: `${planDef.name} — Panorama Co.Space`,
+              name: `${planDef.name} — Panorama Co.Work`,
               description: `${planDef.unit} · starting ${date} · Nesebar, 200m from the sea`,
             },
           },
