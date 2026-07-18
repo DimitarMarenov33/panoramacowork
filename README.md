@@ -48,18 +48,15 @@ Free first day / event requests ──► POST /api/free-booking (no card, email
 
 ### 1. Photos
 
-`img/` already contains `desk.jpg`, `interior.jpg`, `promenade.jpg`, and the
-animated hero background `hero.mp4`. Only the **logo** is still missing
-(`img/logo.jpg`). Either drop a logo file in, or extract it from the original
-beta HTML (the one with the base64 `ASSETS` object):
+`img/` already contains `desk.jpg`, `interior.jpg`, `promenade.jpg`, the
+animated hero background `hero.mp4` (compressed, audio stripped for reliable
+autoplay), and a placeholder sun mark `logo.svg`. To use the original beta
+logo instead, extract it from the original beta HTML (the one with the base64
+`ASSETS` object) and point `ASSETS.logo` in `index.html` at it:
 
 ```bash
 node scripts/extract-assets.mjs /path/to/original-beta.html
-git add img && git commit -m "Add logo" && git push
 ```
-
-The site renders fine without it — a text brand name is shown in the nav and
-missing images hide themselves.
 
 ### 2. Stripe
 
