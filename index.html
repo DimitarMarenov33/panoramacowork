@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light only">
 <meta name="supported-color-schemes" content="light">
-<title>Panorama Co.Work — Coworking in Nesebar, 200m from the sea</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg stroke='%23E8B54D' stroke-width='8' stroke-linecap='round'%3E%3Ccircle cx='60' cy='60' r='22' fill='%23D9822B' stroke='%23E8B54D'/%3E%3Cpath d='M60 8v18M60 94v18M8 60h18M94 60h18M23 23l13 13M84 84l13 13M97 23L84 36M36 84L23 97' fill='none'/%3E%3C/g%3E%3C/svg%3E">
+<title>Panorama Co.Space — Coworking in Nesebar, 200m from the sea</title>
+<link rel="icon" type="image/png" href="img/favicon.png">
 <style>
 :root{color-scheme:light only;
   --cream:#F4EDDE; --cream2:#EFE5CF; --navy:#1E2A44; --navy2:#16203a;
@@ -220,7 +220,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(244,237,222,.94);backdrop-
 
 /* FOOTER */
 footer{background:var(--cream);border-top:3px solid var(--navy);padding:44px 0;text-align:center}
-footer img{height:88px;margin:0 auto 14px;mix-blend-mode:multiply}
+footer img{height:150px;margin:0 auto 14px;mix-blend-mode:multiply}
 footer p{font-size:.82rem;color:var(--brown)}
 
 /* MODAL */
@@ -254,7 +254,7 @@ footer p{font-size:.82rem;color:var(--brown)}
 
 <nav>
   <div class="wrap nav-in">
-    <a class="brand" href="#top"><img data-asset="logo" alt="Panorama Co.Work logo"><span class="brand-name">Panorama Co.Work</span></a>
+    <a class="brand" href="#top"><img data-asset="logo" alt="Panorama Co.Space logo"><span class="brand-name">Panorama Co.Space</span></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#features">The space</a></li>
       <li><a href="#audience">Who it's for</a></li>
@@ -364,7 +364,7 @@ footer p{font-size:.82rem;color:var(--brown)}
 </section>
 
 <div class="bleed">
-  <img data-asset="interior" alt="Inside Panorama Co.Work — desks under an arched window facing the sea at sunset">
+  <img data-asset="interior" alt="Inside Panorama Co.Space — desks under an arched window facing the sea at sunset">
   <div class="quote">Finish at 6. Be in the sea by 6:15.</div>
 </div>
 
@@ -516,8 +516,8 @@ footer p{font-size:.82rem;color:var(--brown)}
 
 <footer>
   <div class="wrap">
-    <img data-asset="logo" alt="Panorama Co.Work">
-    <p>Panorama Co.Work · Nesebar, Bulgaria · hello@panoramaco.work<br>© 2026 Panorama Co.Work. Prices include VAT.</p>
+    <img data-asset="logofull" alt="Panorama Co.Space">
+    <p>Panorama Co.Space · Nesebar, Bulgaria · hello@panoramaco.work<br>© 2026 Panorama Co.Space. Prices include VAT.</p>
   </div>
 </footer>
 
@@ -715,7 +715,7 @@ function showConfirm(data,payload){
 }
 
 /* ---------- asset injection ---------- */
-const ASSETS={logo:"img/logo.svg",interior:"img/interior.jpg",desk:"img/desk.jpg",promenade:"img/promenade.jpg"};
+const ASSETS={logo:"img/logo.png",logofull:"img/logo-full.png",interior:"img/interior.jpg",desk:"img/desk.jpg",promenade:"img/promenade.jpg"};
 document.querySelectorAll("[data-asset]").forEach(el=>{const d=ASSETS[el.dataset.asset];if(d){
   el.onerror=()=>{el.style.display="none";};
   el.src=d;el.style.visibility="visible";

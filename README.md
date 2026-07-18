@@ -1,4 +1,4 @@
-# Panorama Co.Work — panoramaco.work
+# Panorama Co.Space — panoramaco.work
 
 Booking website for Nesebar's first coworking space. Static landing page + Vercel
 serverless functions: visitors pick a plan and start date, pay with Stripe, and
@@ -48,15 +48,10 @@ Free first day / event requests ──► POST /api/free-booking (no card, email
 
 ### 1. Photos
 
-`img/` already contains `desk.jpg`, `interior.jpg`, `promenade.jpg`, the
-animated hero background `hero.mp4` (compressed, audio stripped for reliable
-autoplay), and a placeholder sun mark `logo.svg`. To use the original beta
-logo instead, extract it from the original beta HTML (the one with the base64
-`ASSETS` object) and point `ASSETS.logo` in `index.html` at it:
-
-```bash
-node scripts/extract-assets.mjs /path/to/original-beta.html
-```
+`img/` contains everything the site uses: `desk.jpg`, `interior.jpg`,
+`promenade.jpg`, the animated hero background `hero.mp4` (compressed, audio
+stripped for reliable autoplay), the brand emblem `logo.png` (nav), the full
+lockup `logo-full.png` (footer), and `favicon.png`.
 
 ### 2. Stripe
 
@@ -91,7 +86,7 @@ node scripts/extract-assets.mjs /path/to/original-beta.html
 | `STRIPE_WEBHOOK_SECRET` | `whsec_…` from step 2.3 |
 | `RESEND_API_KEY` | `re_…` |
 | `OWNER_EMAIL` | where booking notifications go (defaults to `dev@gmu.online`) |
-| `FROM_EMAIL` | `Panorama Co.Work <bookings@panoramaco.work>` (after domain verify) |
+| `FROM_EMAIL` | `Panorama Co.Space <bookings@panoramaco.work>` (after domain verify) |
 | `SITE_URL` | `https://panoramaco.work` |
 | `CODE_SECRET` | any long random string — **changing it changes all future door codes** |
 
